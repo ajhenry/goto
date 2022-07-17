@@ -34,6 +34,8 @@ After that it automatically jumps to folders and clones the github repo if neede
 
 ## Installation
 
+> You will also need [the github cli](https://cli.github.com/) in order to list and clone repos
+
 ### _Step 1: Install goto_
 
 ```sh
