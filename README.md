@@ -21,8 +21,7 @@ automatically jumps to folders and clones the github repo if needed
 
 [Getting started](#getting-started) •
 [Installation](#installation) •
-[Configuration](#configuration) •
-[Integrations](#third-party-integrations)
+[Configuration](#configuration)
 
 </div>
 
