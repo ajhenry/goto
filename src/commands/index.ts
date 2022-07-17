@@ -1,6 +1,7 @@
 import { Command, Flags } from '@oclif/core'
 import { bold } from 'kleur'
 import prompts from 'prompts'
+import { gotoFunc } from '../lib/bash'
 import { cloneRepo, getRepos, listRepos } from '../lib/gh'
 import logger from '../lib/logger'
 import {
@@ -15,9 +16,19 @@ import { devDirectoryCommand } from '../user/path'
 export class Goto extends Command {
   static flags = {
     list: Flags.boolean({ char: 'l', description: 'List all repos' }),
-    path: Flags.boolean({ char: 'p', description: 'List the default dev directory' }),
-    update: Flags.boolean({ char: 'u', description: 'Update the default dev directory' }),
+    path: Flags.boolean({
+      char: 'p',
+      description: 'List the default dev directory',
+    }),
+    update: Flags.boolean({
+      char: 'u',
+      description: 'Update the default dev directory',
+    }),
     debug: Flags.boolean({ char: 'd', description: 'Enable debug output' }),
+    init: Flags.boolean({
+      char: 'i',
+      description: 'Initializes the goto function for bash',
+    }),
   }
 
   static args = [{ name: 'path' }]
@@ -37,10 +48,15 @@ export class Goto extends Command {
       })
     }
 
+    // Initializes the goto function for bash
+    if (flags.init) {
+      console.log(gotoFunc)
+      return
+    }
+
     // Go through dev directory command
     if (flags.path) {
       await devDirectoryCommand(flags.update)
-      this.exit(1)
       return
     }
 
@@ -50,14 +66,12 @@ export class Goto extends Command {
       repos.forEach((repo) => {
         logger.info(`${bold(`${repo.owner.login}/${repo.name}`)} - ${repo.url}`)
       })
-      this.exit(1)
       return
-    }    
+    }
 
     // If no dev directory is set, make them set one
     if (!getDevDir()) {
       devDirectoryCommand(true)
-      this.exit(1)
       return
     }
 
@@ -83,7 +97,7 @@ export class Goto extends Command {
 
     // Check for repo on github via gh cli
     const repos = await getRepos(path)
-    
+
     // Handle case for multiple repos with same name
     if (repos.length > 1) {
       logger.error(
@@ -95,7 +109,7 @@ export class Goto extends Command {
       this.exit(1)
       return
     }
-    
+
     // Base case for single repo
     if (repos.length == 1) {
       const repo = `${repos[0].owner.login}/${repos[0].name}`
