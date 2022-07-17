@@ -25,6 +25,12 @@ automatically jumps to folders and clones the github repo if needed
 
 </div>
 
+## Getting Started
+
+<div align="center">
+  <img src="./resources/terminal.svg" alt="Output example">
+</div>
+
 ## Installation
 
 ### _Step 1: Install goto_
