@@ -16,9 +16,6 @@
 
 🪄 A cli tool to **magically** goto folders and github repos locally
 
-It sets a default `dev` directory of your choice and
-automatically jumps to folders and clones the github repo if needed
-
 [Getting started](#getting-started) •
 [Installation](#installation) •
 [Configuration](#configuration)
@@ -30,6 +27,10 @@ automatically jumps to folders and clones the github repo if needed
 <div align="center">
   <img src="./resources/terminal.svg" alt="Output example">
 </div>
+
+When you run goto for the first time, it will prompt for a default `dev` directory of your choice
+
+After that it automatically jumps to folders and clones the github repo if needed
 
 ## Installation
 
