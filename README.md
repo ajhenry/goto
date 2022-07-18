@@ -14,7 +14,7 @@
 <!-- [![Downloads][downloads-badge]][releases]
 [![License][license-badge]][license] -->
 
-🪄 A cli tool to **magically** goto folders and github repos locally
+🪄 A cli tool to **magically** goto folders and clone github repos
 
 [Getting started](#getting-started) •
 [Installation](#installation) •
