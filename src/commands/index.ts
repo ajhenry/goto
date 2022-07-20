@@ -51,12 +51,14 @@ export class Goto extends Command {
     // Initializes the goto function for bash
     if (flags.init) {
       console.log(gotoFunc)
+      this.exit(1)
       return
     }
 
     // Go through dev directory command
-    if (flags.path) {
+    if (flags.path || flags.update) {
       await devDirectoryCommand(flags.update)
+      this.exit(1)
       return
     }
 
@@ -66,18 +68,24 @@ export class Goto extends Command {
       repos.forEach((repo) => {
         logger.info(`${bold(`${repo.owner.login}/${repo.name}`)} - ${repo.url}`)
       })
+      this.exit(1)
       return
     }
 
     // If no dev directory is set, make them set one
     if (!getDevDir()) {
       devDirectoryCommand(true)
+      this.exit(1)
       return
     }
 
     // Don't go to a directory if it's not provided
+    // Go to the default dev directory
     if (!path) {
-      this.exit(1)
+      const defaultDir = getDevDir()!
+      gotoDir(defaultDir)
+      logger.info(`Changed directory to ${bold(defaultDir)}`)
+      this.exit(0)
       return
     }
 
