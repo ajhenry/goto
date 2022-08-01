@@ -14,7 +14,7 @@
     "@oclif/plugin-plugins": "^2.0.1",
     "@types/fs-extra": "^9.0.13",
     "ansi-escapes": "^5.0.0",
-    "conf": "^10.1.2",
+    "conf": "^10.2.0",
     "execa": "^6.1.0",
     "fs-extra": "^10.1.0",
     "kleur": "^4.1.5",
