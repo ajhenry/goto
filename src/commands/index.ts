@@ -11,6 +11,7 @@ import {
   normalizePath,
   pathExists
 } from '../lib/path'
+import { updateGitHubOwners } from '../user/owners'
 import { devDirectoryCommand } from '../user/path'
 
 export class Goto extends Command {
@@ -28,6 +29,10 @@ export class Goto extends Command {
     init: Flags.boolean({
       char: 'i',
       description: 'Initializes the goto function for bash',
+    }),
+    owners: Flags.boolean({
+      char: 'o',
+      description: 'Update the list of owners to search for repos from',
     }),
   }
 
@@ -56,8 +61,15 @@ export class Goto extends Command {
     }
 
     // Go through dev directory command
-    if (flags.path || flags.update) {
+    if (flags.path) {
       await devDirectoryCommand(flags.update)
+      this.exit(1)
+      return
+    }
+
+    // Go through owner command
+    if (flags.owners) {
+      await updateGitHubOwners(flags.update)
       this.exit(1)
       return
     }
