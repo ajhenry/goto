@@ -69,7 +69,7 @@ The following flags are available:
 ```sh
 -> goto -h
 USAGE
-  $ goto [PATH] [-l] [-p] [-u] [-d] [-i]
+  $ goto [PATH] [-l] [-p] [-u] [-d] [-i] [-v]
 
 FLAGS
   -d, --debug   Enable debug output
@@ -77,5 +77,40 @@ FLAGS
   -l, --list    List all repos
   -p, --path    List the default dev directory
   -u, --update  Update the default dev directory
-
+  -v, --version  Prints the version number
 ```
+
+## Developing
+
+This setups a development environment for you
+
+```sh
+npm i
+npm link
+npm run dev
+
+# Now you can run the wrapper cli
+goto-cli -v
+```
+
+Any changes that you make will be available immediately via the wrapper
+
+## Generating Pretty Terminal Output
+
+Install these packages
+
+```sh
+brew install asciinema
+npm i -g svg-term-cli
+```
+
+Run these commands to generate the output
+
+```sh
+asciinema rec ~/.goto/test.json --overwrite
+svg-term --in  ~/.goto/test.json --out resources/terminal.svg --window
+```
+
+## License
+
+MIT

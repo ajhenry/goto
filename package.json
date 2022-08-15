@@ -1,7 +1,7 @@
 {
   "name": "@ajhenry/goto",
   "description": "🪄 A cli tool to magically goto folders and github repos locally",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "author": "Andrew Henry <ajhenry@ajhenry.dev>",
   "bin": {
     "goto-cli": "./bin/run"
@@ -19,6 +19,7 @@
     "fs-extra": "^10.1.0",
     "kleur": "^4.1.5",
     "prompts": "^2.4.2",
+    "read-pkg-up": "^7",
     "tslog": "^3.3.3",
     "untildify": "^4.0.0"
   },
@@ -64,7 +65,10 @@
       "@oclif/plugin-plugins"
     ],
     "default": ".",
-    "additionalHelpFlags": ["-h", "--help"]
+    "additionalHelpFlags": [
+      "-h",
+      "--help"
+    ]
   },
   "repository": "ajhenry/goto",
   "scripts": {
