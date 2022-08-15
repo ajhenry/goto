@@ -1,6 +1,8 @@
 import { Command, Flags } from '@oclif/core'
 import { bold } from 'kleur'
+import { cwd } from 'process'
 import prompts from 'prompts'
+import readPkgUp from 'read-pkg-up'
 import { gotoFunc } from '../lib/bash'
 import { cloneRepo, getRepos, listRepos } from '../lib/gh'
 import logger from '../lib/logger'
@@ -30,6 +32,10 @@ export class Goto extends Command {
       char: 'i',
       description: 'Initializes the goto function for bash',
     }),
+    version: Flags.boolean({
+      char: 'v',
+      description: 'Prints the version number',
+    }),
     owners: Flags.boolean({
       char: 'o',
       description: 'Update the list of owners to search for repos from',
@@ -51,6 +57,16 @@ export class Goto extends Command {
         displayFunctionName: true,
         displayFilePath: 'displayAll',
       })
+    }
+
+    // Print version
+    if (flags.version) {
+      const packageFile = await readPkgUp({ cwd: __dirname })
+      logger.info(
+        bold(packageFile?.packageJson.version ?? 'Something went wrong')
+      )
+      this.exit(1)
+      return
     }
 
     // Initializes the goto function for bash
@@ -76,7 +92,7 @@ export class Goto extends Command {
 
     // List out the directories in the dev directory
     if (flags.list) {
-      const repos = await listRepos()
+      const repos = await listRepos(path)
       repos.forEach((repo) => {
         logger.info(`${bold(`${repo.owner.login}/${repo.name}`)} - ${repo.url}`)
       })
@@ -105,6 +121,9 @@ export class Goto extends Command {
     const pathDir: string = normalizePath(getDevDir()!, path)
     logger.debug(`Paths provided: ${pathDir}`)
 
+    // Need to reset the goto file
+    gotoDir(cwd())
+
     // Goto the project repo directory
     // First check for directory in dev folder
     if (pathExists(pathDir)) {
@@ -113,6 +132,7 @@ export class Goto extends Command {
       this.exit(0)
       return
     }
+
     logger.info(`No paths found for ${bold(path)}`)
 
     // Check for repo on github via gh cli
@@ -120,20 +140,24 @@ export class Goto extends Command {
 
     // Handle case for multiple repos with same name
     if (repos.length > 1) {
-      logger.error(
-        `Multiple repos found for ${bold(path)}. Please specify the repo name.`
-      )
       repos.forEach((repo) => {
-        logger.info(`${bold(`${repo.owner.login}/${repo.name}`)} - ${repo.url}`)
+        logger.info(
+          `${bold(`${repo.owner.login}/${repo.name}`)} - ${repo.description}`
+        )
       })
+      logger.error(
+        `\nNo exact match found for ${bold(
+          path
+        )}. Please specify the repo name.`
+      )
       this.exit(1)
       return
     }
 
     // Base case for single repo
-    if (repos.length == 1) {
+    if (repos.length === 1) {
       const repo = `${repos[0].owner.login}/${repos[0].name}`
-      logger.info(`Found github repo ${bold(repo)}`)
+      logger.info(`Found github repo ${bold(repo)}, cloning...`)
       await cloneRepo(repo, pathDir)
       logger.info(`Changed directory to ${bold(pathDir)}`)
       gotoDir(pathDir)
