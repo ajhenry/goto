@@ -133,7 +133,7 @@ export class Goto extends Command {
       return
     }
 
-    logger.info(`No paths found for ${bold(path)}`)
+    logger.info(`No paths found for ${bold(path)}, checking GitHub next`)
 
     // Check for repo on github via gh cli
     const repos = await getRepos(path)
@@ -150,8 +150,6 @@ export class Goto extends Command {
           path
         )}. Please specify the repo name.`
       )
-      this.exit(1)
-      return
     }
 
     // Base case for single repo

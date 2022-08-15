@@ -5,7 +5,7 @@ import logger from '../lib/logger'
 
 // User prompt for settings dev directory
 export const updateGitHubOwners = async (update: boolean = false) => {
-  const owners = config.get('owners')
+  const owners = config.get('owners', []) as string[]
   if (owners) {
     logger.info(
       `Current github orgs enabled: ${
