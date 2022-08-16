@@ -32,6 +32,22 @@ When you run goto for the first time, it will prompt for a default `dev` directo
 
 After that it automatically jumps to folders and clones the github repo if needed
 
+Some commands to get you started
+
+```sh
+# Jump to the dev directory
+goto
+
+# Clone this repo and jump to the directory
+goto ajhenry/goto
+
+# Add a new github org to the list of orgs to clone from with a single keyword
+goto --owners --update
+
+# Update the default dev directory
+goto --path --update
+```
+
 ## Installation
 
 > You will also need [the github cli](https://cli.github.com/) in order to list and clone repos
@@ -67,16 +83,17 @@ If that also fails, it will ask if you want to create it.
 The following flags are available:
 
 ```sh
--> goto -h
+-> goto -h  
 USAGE
-  $ goto [PATH] [-l] [-p] [-u] [-d] [-i] [-v]
+  $ goto [PATH] [-l] [-p] [-u] [-d] [-i] [-v] [-o]
 
 FLAGS
-  -d, --debug   Enable debug output
-  -i, --init    Initializes the goto function for bash
-  -l, --list    List all repos
-  -p, --path    List the default dev directory
-  -u, --update  Update the default dev directory
+  -d, --debug    Enable debug output
+  -i, --init     Initializes the goto function for bash
+  -l, --list     List all repos
+  -o, --owners   Update the list of owners to search for repos from
+  -p, --path     List the default dev directory
+  -u, --update   Update the dev directory or GitHub owners
   -v, --version  Prints the version number
 ```
 

@@ -25,7 +25,7 @@ export class Goto extends Command {
     }),
     update: Flags.boolean({
       char: 'u',
-      description: 'Update the default dev directory',
+      description: 'Update the dev directory or GitHub owners',
     }),
     debug: Flags.boolean({ char: 'd', description: 'Enable debug output' }),
     init: Flags.boolean({
