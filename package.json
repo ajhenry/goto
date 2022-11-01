@@ -9,7 +9,7 @@
   "bugs": "https://github.com/ajhenry/goto/issues",
   "dependencies": {
     "@expo/spawn-async": "^1.6.0",
-    "@oclif/core": "^1.9.6",
+    "@oclif/core": "^1.20.2",
     "@oclif/plugin-help": "^5",
     "@oclif/plugin-plugins": "^2.0.1",
     "@types/fs-extra": "^9.0.13",
