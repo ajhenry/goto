@@ -46,7 +46,12 @@ goto --owners --update
 
 # Update the default dev directory
 goto --path --update
+
+# Jump to a directory and open in code
+gotoc ajhenry/goto
 ```
+
+> `gotoc` is the same functionality with the added benefit of opening in vscode.
 
 ## Installation
 
@@ -83,7 +88,7 @@ If that also fails, it will ask if you want to create it.
 The following flags are available:
 
 ```sh
--> goto -h  
+-> goto -h
 USAGE
   $ goto [PATH] [-l] [-p] [-u] [-d] [-i] [-v] [-o]
 
