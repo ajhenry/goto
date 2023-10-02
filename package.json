@@ -1,7 +1,7 @@
 {
   "name": "@ajhenry/goto",
   "description": "🪄 A cli tool to magically goto folders and github repos locally",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "Andrew Henry <ajhenry@ajhenry.dev>",
   "bin": {
     "goto-cli": "./bin/run"
